@@ -5,10 +5,11 @@ interface ScrollPageProps {
   children: React.ReactNode;
   page: number;
   debugBorder?: boolean;
+  customStyle?: {}
 }
 
 const ScrollPage = (props: ScrollPageProps) => {
-  const { children, page, debugBorder = false } = props;
+  const { children, page, debugBorder = false, customStyle } = props;
   const { viewportHeight } = useContext(ScrollContainerContext);
   const style: React.CSSProperties = {
     margin: 0,
@@ -19,6 +20,7 @@ const ScrollPage = (props: ScrollPageProps) => {
     scrollSnapAlign: "center",
     overflow: "hidden",
     ...(debugBorder ? { border: "1px solid red" } : {}),
+    ...{customStyle}
   };
   return (
     <div style={style}>
