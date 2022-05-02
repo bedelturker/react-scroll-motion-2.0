@@ -6,6 +6,7 @@ interface ScrollContainerProps {
   snap?: "none" | "proximity" | "mandatory";
   children: React.ReactNodeArray;
   scrollParent?: Window | HTMLElement;
+  style : {}
 }
 
 interface IState {
@@ -20,17 +21,17 @@ interface IState {
 }
 
 const ScrollAnimatorContainer = (props: ScrollContainerProps) => {
-  const { snap = "none", children, scrollParent = window } = props;
+  const { snap = "none", children, scrollParent = window, style } = props;
 
   const [scrollData, setScrollData] = useState<IState>({
-    currentY: 0, // 현재 스크롤 위치(px)
-    viewportHeight: 0, // 화면 높이(px)
-    totalPage: 0, // 총 페이지 수
-    totalHeight: 0, // 총 페이지 높이 합 (px)
-    totalProgress: 0, // 총 페이지 진행률 (%)
-    realPage: 0, // 실수 페이지
-    currentPage: 0, // 정수 페이지
-    currentProgress: 0, // 현재 페이지 진행률 (%)
+    currentY: 0, // Current Scroll Position (px)
+    viewportHeight: 0, // Screen Height(px)
+    totalPage: 0, // Total number of pages
+    totalHeight: 0, // Total page height (px)
+    totalProgress: 0, // Total page progress (%)
+    realPage: 0, //  
+    currentPage: 0, // 
+    currentProgress: 0, // (%)
   });
 
   const doSnap: boolean = snap !== "none";
@@ -49,10 +50,11 @@ const ScrollAnimatorContainer = (props: ScrollContainerProps) => {
         : (scrollParent as HTMLElement).clientHeight;
     const totalPage: number = children.length || 0;
     const totalHeight: number = totalPage * (viewportHeight - 1);
-    const totalProgress: number = currentY / totalHeight; // 전체 페이지 진행률 0 ~ 1
-    const realPage: number = currentY / viewportHeight; // 실수 페이지
-    const currentPage: number = Math.floor(realPage); // 정수 페이지
-    const currentProgress: number = realPage - currentPage; // 현재 페이지 진행률
+    const totalProgress: number = currentY / totalHeight; // Full page progress 0 ~ 1
+    const realPage: number = currentY / viewportHeight;
+    const currentPage: number = Math.floor(realPage);
+    const currentProgress: number = realPage - currentPage;
+    
     setScrollData({
       currentY,
       viewportHeight,
@@ -89,7 +91,7 @@ const ScrollAnimatorContainer = (props: ScrollContainerProps) => {
   }, [scrollEvent, scrollParent]);
 
   return (
-    <div style={{ margin: 0, padding: 0, userSelect: "none" }}>
+    <div style={style}>
       <ScrollContainerContext.Provider value={scrollData}>
         {children}
       </ScrollContainerContext.Provider>
