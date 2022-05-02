@@ -35,8 +35,8 @@ var ScrollContext_1 = require("./ScrollContext");
 var ScrollPage = function (props) {
     var children = props.children, page = props.page, _a = props.debugBorder, debugBorder = _a === void 0 ? false : _a, customStyle = props.customStyle;
     var viewportHeight = react_1.useContext(ScrollContext_1.ScrollContainerContext).viewportHeight;
-    var style = __assign(__assign({ margin: 0, padding: 0, height: viewportHeight, position: "relative", boxSizing: "border-box", scrollSnapAlign: "center", overflow: "hidden" }, (debugBorder ? { border: "1px solid red" } : {})), { customStyle: customStyle });
-    return (react_1.default.createElement("div", { style: style },
+    var style = __assign({ margin: 0, padding: 0, height: viewportHeight, position: "relative", boxSizing: "border-box", scrollSnapAlign: "center", overflow: "hidden" }, (debugBorder ? { border: "1px solid red" } : {}));
+    return (react_1.default.createElement("div", { style: __assign(__assign({}, style), customStyle) },
         react_1.default.createElement(ScrollContext_1.ScrollPageContext.Provider, { value: { page: page } }, children)));
 };
 exports.default = ScrollPage;

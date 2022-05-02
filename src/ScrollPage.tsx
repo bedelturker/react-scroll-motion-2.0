@@ -20,10 +20,9 @@ const ScrollPage = (props: ScrollPageProps) => {
     scrollSnapAlign: "center",
     overflow: "hidden",
     ...(debugBorder ? { border: "1px solid red" } : {}),
-    ...{customStyle}
   };
   return (
-    <div style={style}>
+    <div style={{...style, ...customStyle}}>
       <ScrollPageContext.Provider value={{ page }}>
         {children}
       </ScrollPageContext.Provider>
