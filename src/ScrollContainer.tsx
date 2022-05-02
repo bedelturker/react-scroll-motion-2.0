@@ -6,7 +6,7 @@ interface ScrollContainerProps {
   snap?: "none" | "proximity" | "mandatory";
   children: React.ReactNodeArray;
   scrollParent?: Window | HTMLElement;
-  style : {}
+  customStyle?: {}
 }
 
 interface IState {
@@ -21,7 +21,7 @@ interface IState {
 }
 
 const ScrollAnimatorContainer = (props: ScrollContainerProps) => {
-  const { snap = "none", children, scrollParent = window, style } = props;
+  const { snap = "none", children, scrollParent = window, customStyle } = props;
 
   const [scrollData, setScrollData] = useState<IState>({
     currentY: 0, // Current Scroll Position (px)
@@ -91,7 +91,7 @@ const ScrollAnimatorContainer = (props: ScrollContainerProps) => {
   }, [scrollEvent, scrollParent]);
 
   return (
-    <div style={style}>
+    <div style={customStyle}>
       <ScrollContainerContext.Provider value={scrollData}>
         {children}
       </ScrollContainerContext.Provider>
